@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: {{ .Values.app.name }}
+  name: {{ .Values.app.name }}
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.app.name }}
+    spec:
+      containers:
+        - image: appstellar/frontend-web:latest
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: {{ .Values.app.requestCpu }}
+              memory: {{ .Values.app.requestMem }} 
+            limits:
+              cpu: {{ .Values.app.limitCpu }}
+              memory: {{ .Values.app.limitMem }}
+          ports:
+          - containerPort: {{ .Values.app.port.containerPort }}
+          name: {{ .Values.app.name }}

@@ -1,0 +1,11 @@
+app:
+  name: frontend-web
+  hostname: my-frontend-web.com
+  ingressClassName: nginx
+  port:
+    servicePort: 80
+    containerPort: 3000
+  requestCpu: 85m
+  requestMem: 484Mi
+  limitCpu: 100m
+  limitMem: 700Mi

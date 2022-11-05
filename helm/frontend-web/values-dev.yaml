@@ -1,0 +1,12 @@
+app:
+  name: frontend-web
+  hostname: dev.my-frontend-web.com
+  ingressClassName:
+  enableIngress: true
+  port:
+    servicePort: 80
+    containerPort: 3000
+  requestCpu: 75m
+  requestMem: 384Mi
+  limitCpu: 90m
+  limitMem: 500Mi
