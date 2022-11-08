@@ -1,21 +1,24 @@
-{{ if .Values.app.enableIngress }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Values.app.name }}
+  name: devops-training-berat
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+      kubernetes.io/ingress.class: alb
+      alb.ingress.kubernetes.io/group.name: default
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/certificate-arn: {{ .Values.app.certificate_arn }}
+      alb.ingress.kubernetes.io/ssl-redirect: "443"
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
 spec:
-  ingressClassName: {{ .Values.app.ingressClassName }}
   rules:
-    - host: {{ .Values.app.hostname }}
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ .Values.app.name }}
-                port:
-                  number: {{ .Values.app.port.servicePort }}
-{{ end }}
+  - host: {{ .Values.app.hostname }}
+    http:
+     paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.app.name }}
+            port:
+              number: {{ .Values.app.port.servicePort }}

@@ -1,8 +1,11 @@
 app:
-  name: frontend-web
-  hostname: dev.my-frontend-web.com
-  ingressClassName:
-  enableIngress: true
+  ecr_uri: 313422618945.dkr.ecr.eu-central-1.amazonaws.com/devops-training-berat/web-app
+  image_tag: latest
+  certificate_arn: arn:aws:acm:eu-central-1:313422618945:certificate/c14a3135-288b-4d96-9c14-7f78d81d1ea3
+
+  name: devops-training-berat
+  hostname: web.berat.appstellar.training
+  ingressClassName: alb
   port:
     servicePort: 80
     containerPort: 3000

@@ -53,10 +53,7 @@ jobs:
           kubectl config current-context
 
 
-
-
-
-
-
-      # - name: Helm install/upgrade chart
-      #   run: |
+      - name: Helm install/upgrade chart
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+        run: helm upgrade devops-training-berat ./helm/frontend-web/ -f ./helm/frontend-web/values-dev.yaml --install --namespace devops-training-berat --create-namespace --set app.image_tag=${{ env.IMAGE_TAG }}
